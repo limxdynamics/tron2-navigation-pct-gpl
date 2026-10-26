@@ -8,6 +8,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--2.0--or--later-3d7eff" alt="License: GPL-2.0-or-later"></a>
+  <a href="https://github.com/limxdynamics/tron2-navigation-pct-gpl/actions/workflows/ci.yml"><img src="https://github.com/limxdynamics/tron2-navigation-pct-gpl/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI"></a>
   <img src="https://img.shields.io/badge/ROS%202-Humble-3d7eff" alt="ROS 2 Humble">
   <img src="https://img.shields.io/badge/python-3.10-3d7eff" alt="Python 3.10">
   <img src="https://img.shields.io/badge/Ubuntu%2022.04-aarch64-3d7eff" alt="Ubuntu 22.04 aarch64">
