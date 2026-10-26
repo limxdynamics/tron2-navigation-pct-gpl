@@ -454,7 +454,7 @@ class TomogramPlanner(object):
     
     def _check_position_validity(self, pos, layer):
         """
-        检查位置在指定层是否可行
+        检查位置在指定层是否可行（代价不超过 astar_cost_threshold 且高程有效）
         
         Args:
             pos: 2D位置坐标 [x, y]
@@ -480,6 +480,11 @@ class TomogramPlanner(object):
         
         trav_value = self.trav[layer, x_idx, y_idx]
         elev_value = self.elev_g[layer, x_idx, y_idx]
-        
-        # 可通行性 > 0 且高程有效
-        return trav_value > 0 and elev_value > -100 and not np.isnan(elev_value)
+
+        # trav 是通行代价（越小越好，0 为最易通行），与 A* 和 selectLayer 使用同一阈值
+        return (
+            np.isfinite(trav_value)
+            and trav_value <= self.astar_cost_threshold
+            and np.isfinite(elev_value)
+            and elev_value > -100
+        )

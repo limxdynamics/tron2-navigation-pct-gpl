@@ -1,12 +1,13 @@
 d97d5dbec272562da44514f9a996c5c401a84b142751365989c7695c1c79dcf6  ./.gitignore
+bc0363301933484e437d0d5eb7c06bfbbaf90a202946bedd225a2dc4a816537f  ./.github/workflows/ci.yml
 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  ./LICENSE
 94952bc5d03f2494c98cb43c3b850d03c9b3174e91fbec5a57c84a5b1088d1f6  ./NOTICE
 f869016c2ad21290f06ed8f8818a109a1660d710e1ee53bda2e3e94df82ae89f  ./PROVENANCE.md
-5ad9318ce763dabef9b118ac9563b18b248abc3028f62102ce43223d9f90c3b9  ./README.md
-7100a7b4369237df0a80cddb87958c93616e876a5acc3c3d78b8fc73cd9ad0ef  ./README.zh-CN.md
+aaddadedfed4f10eb0500c587a4f5aaf0fd441b0a77afc595e3d5ac9dc8aa626  ./README.md
+ae03feaf0ea3702fdb689fd667485f952c53b468526e1b6ec2c50bc63f2085c3  ./README.zh-CN.md
 d98ef24f50e9431c076888fcb397d8475e7570cba1cc8cd5e3c28533034655d8  ./audit_source.sh
 3b217e1804b69a57f428c2746c5ca02c7c73786c8fb32cbf3f60cca7c9f28b45  ./planner/build.sh
-1d4928b5764a213f1bff1244cb513a1c9b8dd5875330d1c9a4ca53608a0ac61b  ./planner/build_thirdparty.sh
+55a8b5d38591a469bac2c5583686395484775ca7a5bc49a8c977d4365b016bdb  ./planner/build_thirdparty.sh
 c124c4279123a9ad288d50fa444de0aead9635bd3cc621491ed0a16eea924688  ./planner/config/__init__.py
 d231a81f013447aed6a2b8758080952ebdc92f69fb007d6f53dd10e3054b8745  ./planner/config/navigation.yaml
 a3c4e2d9bb54d039925dcacaa57046d8a917d0588e607a018d3c36d88d7cc845  ./planner/config/param.py
@@ -4311,6 +4312,7 @@ da667665490532c0e4d89414e614702236a60ac9636ab4d0bbc08cf2663b3fc0  ./planner/lib/
 d35b7a8d38692a53f20f74891963e3d5a89e8c60331adce59bf5e3458e1fb073  ./planner/lib/3rdparty/pybind11/tools/setup_global.py.in
 5cd07ed2e873bcfe8c3f499e3e4334a167083e98c177081509eb1e1214ef5f7e  ./planner/lib/3rdparty/pybind11/tools/setup_main.py.in
 73715f373fedcedea6908aa9466bdc4f009a2f6f46dd600117013bf151beefb5  ./planner/lib/CMakeLists.txt
+e5b4d57c8e38c3c2fc515c8327c1ef16c0b612b8c4a20e47ca1841b913fcd56b  ./planner/lib/__init__.py
 a1cbbc083d5ca159cda0929ffd112013b9b97fd48fa2c585bf65bf9e53a42f28  ./planner/lib/a_star.pyi
 480536dbd0862dc9a84685fd5c606285390c88dba31f5c765fc4e14590aaec7a  ./planner/lib/ele_planner.pyi
 fe31734975d5ce182f26fa1a20f6b4628255100e15530504b177827177abdf90  ./planner/lib/py_map_manager.pyi
@@ -4408,7 +4410,7 @@ a4129984479da0298c1281df290643a27c9457361da1b3a25ae91013be126bc9  ./planner/lib/
 29e7fbfc6bc268676064c0c13b0929430f6c2d962a9c08e3d9fd0661abdb05e3  ./planner/run_navigation_humble.sh
 26c5e3627d71d0cb8e5383da6e4fbaf488ebe3ef93ac1a4e29d64151f650f35e  ./planner/scripts/navigation_plan.py
 d77464d639238bd6ca7ddf2f6dc07ca0278130a17835da1b2f0ce3956e6c0b2c  ./planner/scripts/plan.py
-bec3efa9607c0537a01aff399624df83e5b044120efacb33321c12b5e971f3dc  ./planner/scripts/planner_wrapper.py
+9ac0f9d6bb841728c146afb3b4a071584b9d5d0b4a59231973819e0ccc5d4d2f  ./planner/scripts/planner_wrapper.py
 fc8fd47d2278d81244f1444f05327ad4c228d2fbd962ee2321c0930cafb67ad1  ./planner/scripts/stair_centerline.py
 8a319fa6e5edd92fea71bb0f37dbce82b145f19dfefb71fa95bfec2b6e2e5c0d  ./planner/scripts/utils/__init__.py
 61e8fa0aac590ef78fe17216ce0d4deb54341bf6935a05f6a5cc696d07c06f2b  ./planner/scripts/utils/convertion.py
@@ -4416,7 +4418,7 @@ ec8bd698847940190ca1f50c96beedc68fd2838a0958162dfb15e296be895750  ./planner/scri
 d88ec2f7356e8098a8db1142d8defe7590be2893040fa2a7e334ff31a3cc5807  ./planner/tests/a_star_repeat_search_test.cc
 ee456935f4ad7a485142bb74fc80fff8c928b2389a721387ce46d593153c4829  ./planner/tests/test_stair_centerline.py
 b27efc155f19adeb06729fb0af7e9e063efe1b7c2c06fa3c73da3572ce7e8bcf  ./planner/tests/test_multilayer_astar_state.py
-2c42f32391b3f6aa55f0646c5c774360c5fd49930e5053dd59bb9bc5558ab0cf  ./rsc/docs/demo.png
+b7c557419b83c591d1392ce3f58a4bd7a3d1b46f80252193b73221c83e8e4148  ./rsc/docs/demo.png
 ef6249f105096161336bb03fbe650c5c66c450984d95ce0956473ff3deb2e6e7  ./rsc/docs/architecture_en.png
 6815e3e1a5c0d4d0f1d981f8f608a731e1788cea1d1954bbef055b20c4ee2f4a  ./rsc/docs/architecture_zh.png
 0c001c057af70d38a07905994c2427aedc849f66f2f1e5f1b3523714242c1f87  ./rsc/docs/banner.png

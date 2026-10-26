@@ -97,16 +97,17 @@ The build scripts write generated output only under ignored build/install paths
 or as ignored extension modules. Run the included tests before deployment:
 
 ```bash
-python3 -m unittest discover -s planner/tests -p 'test_*.py'
-python3 -m unittest discover -s tomography/tests -p 'test_*.py'
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s planner/tests -p 'test_*.py'
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tomography/tests -p 'test_*.py'
 ```
 
 Notes:
 
 - GTSAM builds with system Eigen (`GTSAM_USE_SYSTEM_EIGEN=ON`), so the Boost and Eigen development packages must be installed, for example `libboost-all-dev` and `libeigen3-dev`.
+- `build_thirdparty.sh` builds only the GTSAM core library; GTSAM examples and `gtsam_unstable`, which the planner does not use, are skipped. On a 2-core x86 machine the third-party build takes about 8 minutes.
 - `test_multilayer_astar_state.py` imports the built `a_star` extension, and two tomography tests import ROS 2 message packages, so run the full test set after the build in a sourced ROS 2 Humble shell. `test_keyframe_height_filter.py` also needs the `rosbags` Python package.
-- Use Python 3.10 as listed. The bundled pybind11 2.11.0.dev1 extensions built and imported under Python 3.13 with NumPy 2, but `a_star.Astar.init` crashed there; under Python 3.10 with NumPy 1.x all ten planner tests pass.
-- Running the tests creates `__pycache__` directories, which `./audit_source.sh` reports as generated content. Remove them before auditing.
+- Use NumPy 1.x (`numpy<2`), such as the `python3-numpy` that ships with Ubuntu 22.04. The bundled pybind11 2.11.0.dev1 predates NumPy 2 support; importing the extensions under NumPy 2 now stops with a clear `ImportError` instead of crashing. With Python 3.10 and NumPy 1.x all ten planner tests pass.
+- `PYTHONDONTWRITEBYTECODE=1` keeps `__pycache__` directories out of the tree; `./audit_source.sh` rejects them as generated content.
 
 ## ROS 2 runtime
 
@@ -153,12 +154,13 @@ Defaults from [planner/config/navigation.yaml](planner/config/navigation.yaml):
 
 ## v1.1.0 stair centerline mode
 
-The planner wrapper includes an opt-in stair centerline post-processor. It
-reconstructs a path from the tomogram layer geometry, validates cell cost,
-support error, support continuity, layer continuity, XY length, and vertical
-span, then smooths the supported centerline. Invalid or ambiguous inputs fail
-closed to the original planner path; the feature never invents an unvalidated
-route.
+The planner wrapper includes an opt-in stair centerline mode. When it is
+enabled, PCT A\* is bypassed: the wrapper reconstructs one XY-straight path from
+the tomogram layer geometry, validates cell cost, support error, support
+continuity, layer continuity, XY length, and vertical span, then smooths the
+supported centerline. Invalid or ambiguous inputs fail closed: the node
+publishes an empty path and reports `GOAL_FAILED`, and it does not fall back to
+an A\* path. The feature never invents an unvalidated route.
 
 Enable it with `pct_planner.stair_centerline.enabled=true`. The associated
 limits are in [planner/config/navigation.yaml](planner/config/navigation.yaml).

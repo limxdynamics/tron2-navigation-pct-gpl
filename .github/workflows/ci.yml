@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Source audit and ROS-free tests
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Source audit
+        run: ./audit_source.sh
+
+      - name: Install test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends python3-numpy python3-pip
+          python3 -m pip install --user rosbags
+
+      - name: ROS-free tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: |
+          python3 -m unittest discover -s planner/tests -p 'test_stair_centerline.py'
+          for test in test_processing_profile_selector test_tomogram_memory_preflight test_keyframe_height_filter; do
+            python3 -m unittest discover -s tomography/tests -p "${test}.py"
+          done
+
+      - name: Source audit after tests
+        run: ./audit_source.sh
+
+  build:
+    name: Build and planner tests (Ubuntu 22.04, Python 3.10)
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential cmake libboost-all-dev libeigen3-dev libtbb-dev \
+            python3-dev python3-numpy
+
+      - name: Build third-party libraries
+        run: ./planner/build_thirdparty.sh
+
+      - name: Build planner extensions
+        run: BUILD_JOBS=4 ./planner/build.sh
+
+      - name: Planner tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: |
+          export LD_LIBRARY_PATH="${PWD}/planner/lib/3rdparty/gtsam-4.1.1/install/lib:${PWD}/planner/lib/3rdparty/osqp/install/lib:${PWD}/planner/lib/build/src/common/smoothing"
+          python3 -m unittest discover -s planner/tests -p 'test_*.py'

@@ -93,16 +93,17 @@ BUILD_JOBS=2 ./planner/build.sh
 编译脚本只会把产物写入已被忽略的 build/install 目录，或生成已被忽略的扩展模块。部署前请运行自带测试：
 
 ```bash
-python3 -m unittest discover -s planner/tests -p 'test_*.py'
-python3 -m unittest discover -s tomography/tests -p 'test_*.py'
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s planner/tests -p 'test_*.py'
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tomography/tests -p 'test_*.py'
 ```
 
 说明：
 
 - GTSAM 使用系统 Eigen 编译（`GTSAM_USE_SYSTEM_EIGEN=ON`），需要预先安装 Boost 和 Eigen 的开发包，例如 `libboost-all-dev` 和 `libeigen3-dev`。
+- `build_thirdparty.sh` 只编译 GTSAM 核心库，跳过规划器用不到的 GTSAM 示例程序和 `gtsam_unstable`。在 2 核 x86 机器上，第三方库编译约需 8 分钟。
 - `test_multilayer_astar_state.py` 依赖编译出的 `a_star` 扩展，另有两个 tomography 测试依赖 ROS 2 消息包，因此完整测试需要在编译完成后、并已 source ROS 2 Humble 的终端中运行。`test_keyframe_height_filter.py` 还需要 Python 包 `rosbags`。
-- 请按上文使用 Python 3.10。随附的 pybind11 2.11.0.dev1 扩展在 Python 3.13 + NumPy 2 下能编译和导入，但调用 `a_star.Astar.init` 时崩溃；在 Python 3.10 + NumPy 1.x 下全部 10 个规划器测试通过。
-- 运行测试会生成 `__pycache__` 目录，`./audit_source.sh` 会把它们识别为生成内容而报错，审计前请先删除。
+- 请使用 NumPy 1.x（`numpy<2`），例如 Ubuntu 22.04 自带的 `python3-numpy`。随附的 pybind11 2.11.0.dev1 早于 NumPy 2 支持；在 NumPy 2 下导入扩展现在会直接给出明确的 `ImportError`，而不是崩溃。Python 3.10 + NumPy 1.x 下全部 10 个规划器测试通过。
+- `PYTHONDONTWRITEBYTECODE=1` 可避免在源码树中生成 `__pycache__`；`./audit_source.sh` 会把这类目录识别为生成内容并报错。
 
 ## ROS 2 运行
 
@@ -146,14 +147,15 @@ export PCT_TOMOGRAM=/absolute/path/to/map.pickle
 
 ## v1.1.0 楼梯中心线模式
 
-规划器封装包含一个默认关闭的楼梯中心线后处理功能，通过 `pct_planner.stair_centerline.enabled=true` 启用，相关阈值见 [planner/config/navigation.yaml](planner/config/navigation.yaml)。该功能涉及安全边界，以下为英文原文说明：
+规划器封装包含一个默认关闭的楼梯中心线模式。启用后不再运行 PCT A\*，而是直接生成一条经校验的直线楼梯路径；校验失败时节点发布空路径并返回 `GOAL_FAILED`，不会回退到 A\* 路径。该模式通过 `pct_planner.stair_centerline.enabled=true` 启用，相关阈值见 [planner/config/navigation.yaml](planner/config/navigation.yaml)。该功能涉及安全边界，以下为英文原文说明：
 
-> The planner wrapper includes an opt-in stair centerline post-processor. It
-> reconstructs a path from the tomogram layer geometry, validates cell cost,
-> support error, support continuity, layer continuity, XY length, and vertical
-> span, then smooths the supported centerline. Invalid or ambiguous inputs fail
-> closed to the original planner path; the feature never invents an unvalidated
-> route.
+> The planner wrapper includes an opt-in stair centerline mode. When it is
+> enabled, PCT A\* is bypassed: the wrapper reconstructs one XY-straight path from
+> the tomogram layer geometry, validates cell cost, support error, support
+> continuity, layer continuity, XY length, and vertical span, then smooths the
+> supported centerline. Invalid or ambiguous inputs fail closed: the node
+> publishes an empty path and reports `GOAL_FAILED`, and it does not fall back to
+> an A\* path. The feature never invents an unvalidated route.
 >
 > Enable it with `pct_planner.stair_centerline.enabled=true`. The associated
 > limits are in [planner/config/navigation.yaml](planner/config/navigation.yaml).
