@@ -18,6 +18,8 @@
 
 # TRON2 PCT Planner
 
+> **TRON2 开源生态的一部分。** 上手路线和其他 TRON2 仓库：[TRON2 快速上手](https://github.com/limxdynamics/limxdynamics/blob/main/doc/quickstart_cn.md#tron2)。
+
 基于点云断层（Point Cloud Tomography，PCT）的全局规划器，让 LimX TRON2 能规划一条跨越楼梯、贯穿多个楼层的路径；以 ROS 2 Humble 节点形式提供，面向 aarch64。
 
 > 本仓库是 TRON2 导航中采用 GPL-2.0-or-later 许可的规划器组件。导航集成与局部规划器位于 [tron2-navigation-ros2](https://github.com/limxdynamics/tron2-navigation-ros2)，定位位于 [tron2-navigation-fastlio-gpl](https://github.com/limxdynamics/tron2-navigation-fastlio-gpl)。

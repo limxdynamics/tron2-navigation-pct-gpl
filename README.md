@@ -18,6 +18,8 @@
 
 # TRON2 PCT Planner
 
+> **Part of the TRON2 open-source ecosystem.** Where to start and the other TRON2 repositories: [TRON2 quick start](https://github.com/limxdynamics/limxdynamics/blob/main/doc/quickstart.md#tron2).
+
 The point-cloud-tomography (PCT) global planner that lets LimX TRON2 plan one path across stairs and multiple floors, packaged as a ROS 2 Humble node for aarch64.
 
 > This repository is the GPL-2.0-or-later planner component of TRON2 navigation. The navigation integration and local planner live in [tron2-navigation-ros2](https://github.com/limxdynamics/tron2-navigation-ros2), and localization in [tron2-navigation-fastlio-gpl](https://github.com/limxdynamics/tron2-navigation-fastlio-gpl).
