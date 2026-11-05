@@ -6,11 +6,6 @@
   <a href="README.md">English</a> | <b>简体中文</b>
 </p>
 
-<!-- limx-community:start -->
-<!-- Managed by limxdynamics/limxdynamics/.github/community/sync_community.py; QR code: doc/wechat_qr.png in that repo -->
-<p align="center"><a href="https://github.com/limxdynamics/limxdynamics/blob/main/doc/wechat_qr.png"><img src="https://img.shields.io/badge/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%E8%80%85%E7%BE%A4-%E6%89%AB%E7%A0%81%E5%8A%A0%E5%85%A5%20%C2%B7%20%E8%A6%86%E7%9B%96%E5%85%A8%E9%83%A8%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE-07C160?style=for-the-badge&logo=wechat&logoColor=white" alt="微信开发者社区"></a></p>
-<!-- limx-community:end -->
-
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--2.0--or--later-3d7eff" alt="License: GPL-2.0-or-later"></a>
   <a href="https://github.com/limxdynamics/tron2-navigation-pct-gpl/actions/workflows/ci.yml"><img src="https://github.com/limxdynamics/tron2-navigation-pct-gpl/actions/workflows/ci.yml/badge.svg?branch=master" alt="CI"></a>
@@ -19,6 +14,8 @@
   <img src="https://img.shields.io/badge/Ubuntu%2022.04-aarch64-3d7eff" alt="Ubuntu 22.04 aarch64">
   <a href="https://github.com/limxdynamics/tron2-navigation-pct-gpl/tags"><img src="https://img.shields.io/github/v/tag/limxdynamics/tron2-navigation-pct-gpl?color=3d7eff" alt="Latest tag"></a>
   <a href="https://ieeexplore.ieee.org/document/10531813"><img src="https://img.shields.io/badge/upstream-IEEE%2FASME%20TMECH%202024-5a6b85" alt="Upstream paper: IEEE/ASME TMECH 2024"></a>
+  <a href="https://github.com/byangw/PCT_planner"><img src="https://img.shields.io/badge/fork%20of-byangw%2FPCT__planner-2f6feb" alt="Fork of byangw/PCT_planner"></a>
+  <a href="https://github.com/limxdynamics/limxdynamics/blob/main/doc/wechat_qr.png"><img src="https://img.shields.io/badge/%E5%BE%AE%E4%BF%A1-%E5%BC%80%E5%8F%91%E8%80%85%E7%A4%BE%E5%8C%BA-07C160?logo=wechat&logoColor=white" alt="微信开发者社区"></a>
 </p>
 
 # TRON2 PCT Planner
